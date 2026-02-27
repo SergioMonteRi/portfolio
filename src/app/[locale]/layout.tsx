@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Syne, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -7,17 +7,17 @@ import { Navbar } from "@/components/Navbar";
 import "../globals.css";
 
 /**
- * Space Grotesk — primary display font for headings and body text.
- * Loaded with latin subset to optimize bundle size.
+ * Syne — bold geometric display font for headings and body text.
+ * Distinctive editorial character that stands apart from generic sans-serifs.
  */
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 /**
- * JetBrains Mono — monospace font for code snippets and technical text.
+ * JetBrains Mono — monospace font for labels, metadata and technical text.
  * Loaded with latin subset to optimize bundle size.
  */
 const jetbrainsMono = JetBrains_Mono({
@@ -74,7 +74,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="dark">
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${syne.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <Navbar />

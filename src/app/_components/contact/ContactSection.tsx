@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Mail, Phone, Github, Linkedin, Send } from "lucide-react";
+import { Mail, Phone, Github, Linkedin, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ElementType } from "react";
 
@@ -26,29 +26,30 @@ interface FormFields {
 // ─── Shared input class ───────────────────────────────────────────────────────
 
 const INPUT_CLASS =
-  "w-full rounded-xl border bg-white/[0.04] px-4 py-3 text-sm text-[#f5f5f5] placeholder-zinc-600 outline-none transition-all duration-200 " +
-  "border-white/[0.08] hover:border-white/[0.14] hover:bg-white/[0.06] " +
-  "focus:border-indigo-500/60 focus:bg-white/[0.06] focus:ring-2 focus:ring-indigo-500/20";
+  "w-full border bg-transparent px-4 py-3 text-sm text-[#f5f5f5] placeholder-zinc-700 outline-none transition-all duration-200 " +
+  "border-white/[0.08] hover:border-white/[0.16] " +
+  "focus:border-[#e8651a] focus:ring-0";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
 const CONTAINER_VARIANTS = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
 const ITEM_VARIANTS = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as const },
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function ContactInfoItem({ item }: { item: ContactInfo }) {
+/** Contact info row — clean typographic link, no card. */
+function ContactInfoRow({ item }: { item: ContactInfo }) {
   const Icon = item.icon;
   const Tag = item.href ? "a" : "div";
 
@@ -57,19 +58,29 @@ function ContactInfoItem({ item }: { item: ContactInfo }) {
       href={item.href}
       {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       aria-label={`${item.label}: ${item.value}`}
-      className="group flex items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-200 hover:border-white/10 hover:bg-white/[0.05]"
+      className="group flex items-center justify-between border-t py-5 transition-colors duration-200 hover:border-[#e8651a]/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#e8651a]"
+      style={{ borderColor: "rgba(255,255,255,0.08)" }}
     >
-      <div className="flex-shrink-0 rounded-lg bg-indigo-600/20 p-2.5 transition-colors duration-200 group-hover:bg-indigo-600/30">
-        <Icon size={16} className="text-indigo-400" aria-hidden="true" />
+      <div className="flex items-center gap-4">
+        <Icon
+          size={14}
+          className="text-zinc-600 transition-colors duration-200 group-hover:text-[#e8651a]"
+          aria-hidden="true"
+        />
+        <div className="flex flex-col gap-0.5">
+          <span className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-600">
+            {item.label}
+          </span>
+          <span className="text-sm font-medium text-zinc-300 transition-colors duration-200 group-hover:text-[#f5f5f5]">
+            {item.value}
+          </span>
+        </div>
       </div>
-      <div className="min-w-0">
-        <p className="text-xs font-medium uppercase tracking-wider text-zinc-600">
-          {item.label}
-        </p>
-        <p className="truncate text-sm font-medium text-zinc-300 transition-colors duration-200 group-hover:text-white">
-          {item.value}
-        </p>
-      </div>
+      <ArrowUpRight
+        size={14}
+        className="text-zinc-700 transition-all duration-200 group-hover:text-[#e8651a] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        aria-hidden="true"
+      />
     </Tag>
   );
 }
@@ -114,11 +125,14 @@ function ContactForm() {
       onSubmit={handleSubmit}
       noValidate
       aria-label={t("formAriaLabel")}
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-5"
     >
       {/* Name */}
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="contact-name" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <label
+          htmlFor="contact-name"
+          className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-600"
+        >
           {t("nameLabel")}
         </label>
         <input
@@ -136,7 +150,10 @@ function ContactForm() {
 
       {/* Email */}
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="contact-email" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <label
+          htmlFor="contact-email"
+          className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-600"
+        >
           {t("emailLabel")}
         </label>
         <input
@@ -154,7 +171,10 @@ function ContactForm() {
 
       {/* Message */}
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="contact-message" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <label
+          htmlFor="contact-message"
+          className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-600"
+        >
           {t("messageLabel")}
         </label>
         <textarea
@@ -172,7 +192,7 @@ function ContactForm() {
       {/* Submit */}
       <button
         type="submit"
-        className="group mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 text-sm font-semibold text-white shadow-[0_0_32px_rgba(99,102,241,0.25)] transition-all duration-300 hover:bg-indigo-500 hover:shadow-[0_0_48px_rgba(99,102,241,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080808] disabled:opacity-50"
+        className="mt-1 inline-flex h-11 items-center justify-center gap-2 border border-[#e8651a] px-8 text-sm font-semibold text-[#e8651a] transition-all duration-200 hover:bg-[#e8651a] hover:text-[#080808] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8651a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080808]"
       >
         {submitted ? (
           <>
@@ -180,18 +200,11 @@ function ContactForm() {
             <span aria-hidden="true">✓</span>
           </>
         ) : (
-          <>
-            <span>{t("submitButton")}</span>
-            <Send
-              size={15}
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </>
+          <span>{t("submitButton")} →</span>
         )}
       </button>
 
-      <p className="text-center text-xs text-zinc-600">
+      <p className="font-mono text-xs text-zinc-700">
         {t("footerNote")}
       </p>
     </form>
@@ -203,9 +216,9 @@ function ContactForm() {
 /**
  * Contact section of the portfolio.
  *
- * Renders a two-column layout with contact info links on the left and a
- * contact form on the right. Form submission opens the system email client
- * pre-filled with the typed content (no backend required).
+ * Two-column layout: contact info links on the left, contact form on the right.
+ * Links styled as typographic rows — no card backgrounds.
+ * Form uses sharp-cornered inputs with amber focus state.
  * All animations are scroll-triggered and disabled when
  * `prefers-reduced-motion` is active.
  */
@@ -260,92 +273,58 @@ export function ContactSection() {
         aria-label={t("ariaLabel")}
         className="relative px-6 py-32"
       >
-        {/* Subtle background accent */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[700px] -translate-x-1/2 translate-y-1/2 rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(99,102,241,0.07), transparent 70%)",
-          }}
-        />
-
-        <div className="relative mx-auto max-w-6xl">
+        <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
 
-            {/* ── Left: info ─────────────────────────────────────────────── */}
+            {/* ── Left: header + info ─────────────────────────────────────── */}
             <motion.div
-              className="flex flex-col gap-8"
+              className="flex flex-col gap-0"
               variants={containerVariants}
               initial={initial}
               whileInView="visible"
               viewport={{ once: true }}
             >
               {/* Header */}
-              <div className="flex flex-col gap-4">
-                <motion.span
-                  variants={itemVariants}
-                  className="text-sm font-medium uppercase tracking-widest text-indigo-400"
-                >
-                  {t("sectionLabel")}
-                </motion.span>
+              <motion.div variants={itemVariants} className="mb-12">
+                <span className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-600">
+                  — {t("sectionLabel")}
+                </span>
 
-                <motion.h2
-                  variants={itemVariants}
-                  className="text-3xl font-bold leading-tight text-[#f5f5f5] sm:text-4xl lg:text-5xl"
-                >
+                <h2 className="mt-3 text-4xl font-bold leading-tight text-[#f5f5f5] sm:text-5xl lg:text-6xl">
                   {t("heading")}{" "}
-                  <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-                    {t("headingHighlight")}
-                  </span>
-                </motion.h2>
+                  <span style={{ color: "#e8651a" }}>{t("headingHighlight")}</span>
+                </h2>
 
-                <motion.p
-                  variants={itemVariants}
-                  className="text-base leading-relaxed text-zinc-400"
-                >
+                <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
                   {t("description")}
-                </motion.p>
-              </div>
-
-              {/* Divider */}
-              <motion.div
-                variants={itemVariants}
-                aria-hidden="true"
-                className="h-px"
-                style={{ background: "rgba(255,255,255,0.06)" }}
-              />
+                </p>
+              </motion.div>
 
               {/* Contact info list */}
-              <motion.div
-                variants={itemVariants}
-                className="flex flex-col gap-3"
-              >
+              <motion.div variants={itemVariants}>
                 {contactInfo.map((item) => (
-                  <ContactInfoItem key={item.id} item={item} />
+                  <ContactInfoRow key={item.id} item={item} />
                 ))}
+                <div
+                  className="border-t"
+                  style={{ borderColor: "rgba(255,255,255,0.08)" }}
+                />
               </motion.div>
             </motion.div>
 
             {/* ── Right: form ────────────────────────────────────────────── */}
             <motion.div
-              initial={
-                shouldReduceMotion ? false : { opacity: 0, x: 32 }
-              }
+              initial={shouldReduceMotion ? false : { opacity: 0, x: 28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-              className="rounded-2xl border p-6 sm:p-8"
-              style={{
-                borderColor: "rgba(255,255,255,0.06)",
-                background: "rgba(255,255,255,0.02)",
-              }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col gap-6"
             >
-              <div className="mb-6 flex flex-col gap-1">
-                <h3 className="text-lg font-semibold text-[#f5f5f5]">
+              <div>
+                <h3 className="text-lg font-bold text-[#f5f5f5]">
                   {t("formTitle")}
                 </h3>
-                <p className="text-sm text-zinc-500">
+                <p className="mt-1 text-sm text-zinc-500">
                   {t("formSubtitle")}
                 </p>
               </div>
@@ -358,19 +337,16 @@ export function ContactSection() {
       </section>
 
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
-      <footer
-        className="px-6 pb-10 pt-0"
-        aria-label={tf("ariaLabel")}
-      >
+      <footer className="px-6 pb-10 pt-0" aria-label={tf("ariaLabel")}>
         <div
-          className="mx-auto max-w-6xl border-t pt-8"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}
+          className="mx-auto max-w-7xl border-t pt-8"
+          style={{ borderColor: "rgba(255,255,255,0.08)" }}
         >
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-xs text-zinc-600">
+            <p className="font-mono text-xs text-zinc-700">
               © {new Date().getFullYear()} Sergio Monteiro Ribeiro
             </p>
-            <p className="text-xs text-zinc-700">
+            <p className="font-mono text-xs text-zinc-800">
               {tf("madeWith")}
             </p>
           </div>

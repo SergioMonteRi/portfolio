@@ -1,18 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Briefcase, GraduationCap, Globe } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { ElementType, ReactNode } from "react";
-
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-interface HighlightItem {
-  icon: ElementType;
-  title: string;
-  subtitle: string;
-  detail: string;
-}
+import type { ReactNode } from "react";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -24,91 +14,68 @@ const CONTAINER_VARIANTS = {
 };
 
 const ITEM_VARIANTS = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
+/** Profile photo placeholder — geometric, no gradients. */
 function ProfilePhoto({ placeholder }: { placeholder: string }) {
   return (
-    <div className="relative mx-auto h-64 w-64 lg:h-80 lg:w-80">
-      {/* Ambient glow */}
+    <div
+      className="relative mx-auto flex h-64 w-64 flex-col items-center justify-center lg:h-80 lg:w-80"
+      style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+    >
+      {/* Amber corner accent */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 rounded-2xl blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(99,102,241,0.35) 0%, rgba(139,92,246,0.25) 50%, transparent 75%)",
-        }}
+        className="absolute left-0 top-0 h-8 w-8 border-l-2 border-t-2"
+        style={{ borderColor: "#e8651a" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 right-0 h-8 w-8 border-b-2 border-r-2"
+        style={{ borderColor: "#e8651a" }}
       />
 
-      {/* Border ring via gradient wrapper */}
-      <div
-        className="absolute inset-0 rounded-2xl p-px"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(99,102,241,0.5), rgba(139,92,246,0.3), rgba(255,255,255,0.06))",
-        }}
-      >
-        <div
-          className="h-full w-full rounded-2xl"
-          style={{ background: "linear-gradient(135deg, #0d0d1e 0%, #09090f 100%)" }}
-        />
-      </div>
+      {/* Initials */}
+      <span className="select-none text-7xl font-extrabold text-[#f5f5f5] lg:text-8xl">
+        SM
+      </span>
 
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl">
-        {/* Inner radial highlight */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 rounded-2xl opacity-30"
-          style={{
-            background:
-              "radial-gradient(circle at 35% 35%, rgba(99,102,241,0.4), transparent 55%)",
-          }}
-        />
-
-        {/* Initials */}
-        <span
-          className="relative select-none text-7xl font-bold"
-          style={{
-            background: "linear-gradient(135deg, #818cf8 0%, #a78bfa 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          SM
-        </span>
-
-        {/* Placeholder label */}
-        <span className="relative text-xs font-medium uppercase tracking-widest text-zinc-600">
-          {placeholder}
-        </span>
-      </div>
+      {/* Placeholder label */}
+      <span className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-zinc-600">
+        {placeholder}
+      </span>
     </div>
   );
 }
 
-function HighlightCard({ icon: Icon, title, subtitle, detail }: HighlightItem) {
+/** Highlight stat item — clean row with amber marker. */
+function StatRow({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: string;
+  sub: string;
+}) {
   return (
     <div
-      className="flex items-start gap-3 rounded-xl border p-4 transition-colors duration-200 hover:bg-white/[0.04]"
-      style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}
+      className="flex flex-col gap-0.5 border-l-2 py-1 pl-4"
+      style={{ borderColor: "#e8651a" }}
     >
-      <div className="mt-0.5 flex-shrink-0 rounded-lg bg-indigo-600/20 p-2">
-        <Icon size={15} className="text-indigo-400" aria-hidden="true" />
-      </div>
-
-      <div className="min-w-0">
-        <p className="text-sm font-semibold leading-tight text-[#f5f5f5]">{title}</p>
-        <p className="mt-0.5 text-xs text-zinc-400">{subtitle}</p>
-        <p className="mt-0.5 text-xs text-zinc-600">{detail}</p>
-      </div>
+      <span className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-600">
+        {label}
+      </span>
+      <span className="text-sm font-semibold text-[#f5f5f5]">{value}</span>
+      <span className="font-mono text-xs text-zinc-500">{sub}</span>
     </div>
   );
 }
@@ -118,8 +85,8 @@ function HighlightCard({ icon: Icon, title, subtitle, detail }: HighlightItem) {
 /**
  * About section of the portfolio.
  *
- * Displays a profile photo placeholder, a professional bio, and a grid of
- * highlight cards covering current role, education, and language skills.
+ * Displays a geometric profile photo placeholder, professional bio, and
+ * a grid of highlight stats. Design: sharp corners, amber accents, no gradients.
  * All animations are scroll-triggered via `whileInView` and disabled when
  * `prefers-reduced-motion` is active.
  */
@@ -133,35 +100,8 @@ export function AboutSection() {
 
   /** Renders a bold inline span for rich-text interpolation. */
   const boldSpan = (chunks: ReactNode) => (
-    <span className="font-medium text-zinc-300">{chunks}</span>
+    <span className="font-semibold text-[#f5f5f5]">{chunks}</span>
   );
-
-  const highlights: HighlightItem[] = [
-    {
-      icon: Briefcase,
-      title: "NewGo Software House",
-      subtitle: t("highlights.newgo.subtitle"),
-      detail: t("highlights.newgo.detail"),
-    },
-    {
-      icon: GraduationCap,
-      title: t("highlights.uxdesign.title"),
-      subtitle: "PUCRS",
-      detail: t("highlights.uxdesign.detail"),
-    },
-    {
-      icon: GraduationCap,
-      title: t("highlights.ads.title"),
-      subtitle: "UMC",
-      detail: t("highlights.ads.detail"),
-    },
-    {
-      icon: Globe,
-      title: t("highlights.english.title"),
-      subtitle: t("highlights.english.subtitle"),
-      detail: t("highlights.english.detail"),
-    },
-  ];
 
   return (
     <section
@@ -169,15 +109,15 @@ export function AboutSection() {
       aria-label={t("ariaLabel")}
       className="relative px-6 py-32"
     >
-      <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-[2fr_3fr] lg:gap-24">
 
           {/* ── Photo ─────────────────────────────────────────────────────── */}
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, x: -48 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, x: -32 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="flex justify-center"
           >
             <ProfilePhoto placeholder={t("photoPlaceholder")} />
@@ -189,25 +129,22 @@ export function AboutSection() {
             initial={initial}
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-8"
           >
             {/* Section label */}
-            <motion.span
-              variants={itemVariants}
-              className="text-sm font-medium uppercase tracking-widest text-indigo-400"
-            >
-              {t("sectionLabel")}
-            </motion.span>
+            <motion.div variants={itemVariants} className="flex items-center gap-3">
+              <span className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-600">
+                — {t("sectionLabel")}
+              </span>
+            </motion.div>
 
             {/* Heading */}
             <motion.h2
               variants={itemVariants}
-              className="text-3xl font-bold leading-tight text-[#f5f5f5] sm:text-4xl lg:text-5xl"
+              className="text-4xl font-bold leading-tight text-[#f5f5f5] sm:text-5xl lg:text-6xl"
             >
               {t("heading")}{" "}
-              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-                {t("headingHighlight")}
-              </span>
+              <span style={{ color: "#e8651a" }}>{t("headingHighlight")}</span>
             </motion.h2>
 
             {/* Bio */}
@@ -215,12 +152,8 @@ export function AboutSection() {
               variants={itemVariants}
               className="flex flex-col gap-4 text-base leading-relaxed text-zinc-400"
             >
-              <p>
-                {t.rich("bio1", { b: boldSpan })}
-              </p>
-              <p>
-                {t.rich("bio2", { b: boldSpan })}
-              </p>
+              <p>{t.rich("bio1", { b: boldSpan })}</p>
+              <p>{t.rich("bio2", { b: boldSpan })}</p>
             </motion.div>
 
             {/* Divider */}
@@ -228,17 +161,34 @@ export function AboutSection() {
               variants={itemVariants}
               aria-hidden="true"
               className="h-px"
-              style={{ background: "rgba(255,255,255,0.06)" }}
+              style={{ background: "rgba(255,255,255,0.08)" }}
             />
 
-            {/* Highlight cards */}
+            {/* Highlight stats grid */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 gap-3 sm:grid-cols-2"
+              className="grid grid-cols-1 gap-5 sm:grid-cols-2"
             >
-              {highlights.map((item) => (
-                <HighlightCard key={item.title} {...item} />
-              ))}
+              <StatRow
+                label={t("highlights.newgo.subtitle")}
+                value="NewGo Software House"
+                sub={t("highlights.newgo.detail")}
+              />
+              <StatRow
+                label="PUCRS"
+                value={t("highlights.uxdesign.title")}
+                sub={t("highlights.uxdesign.detail")}
+              />
+              <StatRow
+                label="UMC"
+                value={t("highlights.ads.title")}
+                sub={t("highlights.ads.detail")}
+              />
+              <StatRow
+                label={t("highlights.english.subtitle")}
+                value={t("highlights.english.title")}
+                sub={t("highlights.english.detail")}
+              />
             </motion.div>
           </motion.div>
 

@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-space-grotesk);
+  --font-sans: var(--font-syne);
   --font-mono: var(--font-jetbrains-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -47,97 +47,98 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-/* Portfolio design system — always dark theme */
+/* Portfolio design system — always dark, signal/precision aesthetic */
 :root {
-  --radius: 0.625rem;
+  /* Nearly flat corners — structural, not decorative */
+  --radius: 0.125rem;
 
-  /* Base palette — dark theme (#080808 background, #f5f5f5 text) */
+  /* Base palette */
   --background: #080808;
   --foreground: #f5f5f5;
 
-  /* Card / surface — slightly lifted from background */
-  --card: #0f0f0f;
+  /* Card / surface */
+  --card: #0e0e0e;
   --card-foreground: #f5f5f5;
-  --popover: #0f0f0f;
+  --popover: #0e0e0e;
   --popover-foreground: #f5f5f5;
 
-  /* Primary — indigo accent (#6366f1) */
-  --primary: #6366f1;
-  --primary-foreground: #f5f5f5;
+  /* Primary — warm amber (#e8651a) */
+  --primary: #e8651a;
+  --primary-foreground: #080808;
 
-  /* Secondary — violet accent (#8b5cf6) */
-  --secondary: #8b5cf6;
+  /* Secondary */
+  --secondary: #1a1a1a;
   --secondary-foreground: #f5f5f5;
 
-  /* Muted — subtle surfaces */
-  --muted: #1a1a1a;
-  --muted-foreground: #a1a1aa;
+  /* Muted */
+  --muted: #141414;
+  --muted-foreground: #71717a;
 
-  /* Accent — reuses indigo */
-  --accent: #6366f1;
-  --accent-foreground: #f5f5f5;
+  /* Accent — reuses amber */
+  --accent: #e8651a;
+  --accent-foreground: #080808;
 
   /* Destructive */
   --destructive: oklch(0.704 0.191 22.216);
 
-  /* Borders — rgba(255,255,255,0.06) per design spec */
-  --border: rgba(255, 255, 255, 0.06);
+  /* Borders — slightly more visible for structure */
+  --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
 
-  /* Focus ring — indigo glow */
-  --ring: #6366f1;
+  /* Focus ring — amber */
+  --ring: #e8651a;
 
   /* Chart colors */
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #a78bfa;
-  --chart-4: #c4b5fd;
-  --chart-5: #ddd6fe;
+  --chart-1: #e8651a;
+  --chart-2: #d97706;
+  --chart-3: #b45309;
+  --chart-4: #92400e;
+  --chart-5: #78350f;
 
   /* Sidebar */
-  --sidebar: #0f0f0f;
+  --sidebar: #0e0e0e;
   --sidebar-foreground: #f5f5f5;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #f5f5f5;
+  --sidebar-primary: #e8651a;
+  --sidebar-primary-foreground: #080808;
   --sidebar-accent: #1a1a1a;
   --sidebar-accent-foreground: #f5f5f5;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #6366f1;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #e8651a;
 }
 
 /* .dark mirrors :root since the portfolio is exclusively dark */
 .dark {
   --background: #080808;
   --foreground: #f5f5f5;
-  --card: #0f0f0f;
+  --card: #0e0e0e;
   --card-foreground: #f5f5f5;
-  --popover: #0f0f0f;
+  --popover: #0e0e0e;
   --popover-foreground: #f5f5f5;
-  --primary: #6366f1;
-  --primary-foreground: #f5f5f5;
-  --secondary: #8b5cf6;
+  --primary: #e8651a;
+  --primary-foreground: #080808;
+  --secondary: #1a1a1a;
   --secondary-foreground: #f5f5f5;
-  --muted: #1a1a1a;
-  --muted-foreground: #a1a1aa;
-  --accent: #6366f1;
-  --accent-foreground: #f5f5f5;
+  --muted: #141414;
+  --muted-foreground: #71717a;
+  --accent: #e8651a;
+  --accent-foreground: #080808;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: #6366f1;
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #a78bfa;
-  --chart-4: #c4b5fd;
-  --chart-5: #ddd6fe;
-  --sidebar: #0f0f0f;
+  --ring: #e8651a;
+  --chart-1: #e8651a;
+  --chart-2: #d97706;
+  --chart-3: #b45309;
+  --chart-4: #92400e;
+  --chart-5: #78350f;
+  --sidebar: #0e0e0e;
   --sidebar-foreground: #f5f5f5;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #f5f5f5;
+  --sidebar-primary: #e8651a;
+  --sidebar-primary-foreground: #080808;
   --sidebar-accent: #1a1a1a;
   --sidebar-accent-foreground: #f5f5f5;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #6366f1;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #e8651a;
 }
 
 @layer base {
@@ -149,6 +150,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Subtle dot-grid texture — adds depth without orbs or gradients */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
   /* Offset anchor scrolling so sections don't hide under the fixed navbar (64px). */
   section[id] {

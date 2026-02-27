@@ -136,3 +136,7 @@ Timeline com:
 - [ ] Animações respeitam prefers-reduced-motion?
 - [ ] Sem useMemo/useCallback desnecessários (React Compiler cuida disso)?
 - [ ] TypeScript sem erros (strict mode)?
+---
+
+## Skills
+Leia e aplique as diretrizes de: `.agents/skills/frontend-design/SKILL.md`

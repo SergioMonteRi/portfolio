@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ExternalLink, Smartphone, Globe, Monitor } from "lucide-react";
+import { Smartphone, Globe, Monitor } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ElementType } from "react";
 
@@ -15,16 +15,12 @@ interface ProjectLink {
 
 interface Project {
   id: string;
+  index: string;
   name: string;
-  /** Optional client / company name displayed as a badge. */
   client?: string;
   description: string;
   stack: string[];
   links: ProjectLink[];
-  /** CSS gradient string for the card preview area. */
-  previewGradient: string;
-  /** RGB values used for the hover glow and inner accent shapes. */
-  accentRgb: string;
 }
 
 // ─── Animation variants ───────────────────────────────────────────────────────
@@ -32,138 +28,86 @@ interface Project {
 const CONTAINER_VARIANTS = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.12, delayChildren: 0.05 },
   },
 };
 
-const CARD_VARIANTS = {
-  hidden: { opacity: 0, y: 40 },
+const ROW_VARIANTS = {
+  hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function CardPreview({
-  gradient,
-  accentRgb,
-}: {
-  gradient: string;
-  accentRgb: string;
-}) {
-  return (
-    <div className="relative h-44 overflow-hidden" style={{ background: gradient }}>
-      {/* Dot grid overlay */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        }}
-      />
-
-      {/* Abstract blurred orbs */}
-      <div
-        aria-hidden="true"
-        className="absolute -right-10 -top-10 h-40 w-40 rounded-full blur-2xl"
-        style={{ background: `rgba(${accentRgb}, 0.5)` }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-8 left-4 h-28 w-28 rounded-full blur-2xl"
-        style={{ background: "rgba(255,255,255,0.06)" }}
-      />
-
-      {/* Decorative rings */}
-      <div
-        aria-hidden="true"
-        className="absolute right-8 bottom-8 h-20 w-20 rounded-full border border-white/20"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute right-12 bottom-12 h-10 w-10 rounded-full border border-white/10"
-      />
-    </div>
-  );
-}
-
-function StackPill({ label }: { label: string }) {
-  return (
-    <span
-      className="rounded-full px-2.5 py-1 text-xs font-medium text-zinc-500"
-      style={{
-        background: "rgba(255,255,255,0.05)",
-        border: "1px solid rgba(255,255,255,0.07)",
-      }}
-    >
-      {label}
-    </span>
-  );
-}
-
-function ProjectCard({ project }: { project: Project }) {
+function ProjectRow({ project }: { project: Project }) {
   return (
     <article
-      aria-label={`${project.name}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:-translate-y-1.5 hover:border-white/10 hover:shadow-[0_0_48px_rgba(99,102,241,0.12)]"
+      aria-label={project.name}
+      className="group border-t py-10 transition-colors duration-300"
+      style={{ borderColor: "rgba(255,255,255,0.08)" }}
     >
-      <CardPreview gradient={project.previewGradient} accentRgb={project.accentRgb} />
+      <div className="flex flex-col gap-6 sm:flex-row sm:gap-10">
 
-      <div className="flex flex-1 flex-col gap-4 p-6">
-        {/* Client badge */}
-        {project.client && (
-          <div>
-            <span className="rounded-full bg-indigo-600/20 px-2.5 py-0.5 text-xs font-semibold text-indigo-400">
-              {project.client}
-            </span>
+        {/* Index number */}
+        <div className="flex-shrink-0">
+          <span
+            className="font-mono text-5xl font-bold leading-none sm:text-6xl"
+            aria-hidden="true"
+            style={{ color: "rgba(255,255,255,0.06)" }}
+          >
+            {project.index}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-1 flex-col gap-5">
+          {/* Name + client row */}
+          <div className="flex flex-wrap items-baseline gap-3">
+            <h3 className="text-2xl font-bold text-[#f5f5f5] transition-colors duration-200 group-hover:text-[#e8651a] sm:text-3xl">
+              {project.name}
+            </h3>
+            {project.client && (
+              <span className="font-mono text-xs uppercase tracking-[0.15em] text-zinc-600">
+                {project.client}
+              </span>
+            )}
           </div>
-        )}
 
-        {/* Name */}
-        <h3 className="text-xl font-bold text-[#f5f5f5] transition-colors duration-200 group-hover:text-white">
-          {project.name}
-        </h3>
+          {/* Description */}
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
+            {project.description}
+          </p>
 
-        {/* Description */}
-        <p className="flex-1 text-sm leading-relaxed text-zinc-400">
-          {project.description}
-        </p>
+          {/* Stack — comma-separated, not pills */}
+          <p className="font-mono text-xs text-zinc-600">
+            {project.stack.join(" · ")}
+          </p>
 
-        {/* Stack pills */}
-        <div className="flex flex-wrap gap-1.5">
-          {project.stack.map((tech) => (
-            <StackPill key={tech} label={tech} />
-          ))}
+          {/* Links */}
+          <div className="flex flex-wrap items-center gap-4">
+            {project.links.map((link) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${link.label} — ${project.name}`}
+                  className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.15em] text-zinc-500 transition-all duration-200 hover:text-[#e8651a] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#e8651a]"
+                >
+                  <Icon size={11} aria-hidden="true" />
+                  {link.label} →
+                </a>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Links */}
-        <div
-          className="flex flex-wrap items-center gap-1 border-t pt-4"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}
-        >
-          {project.links.map((link) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={link.label}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${link.label} — ${project.name}`}
-                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-zinc-500 transition-all duration-200 hover:bg-white/[0.06] hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080808]"
-              >
-                <Icon size={12} aria-hidden="true" />
-                {link.label}
-                <ExternalLink size={10} aria-hidden="true" className="opacity-40" />
-              </a>
-            );
-          })}
-        </div>
       </div>
     </article>
   );
@@ -174,9 +118,9 @@ function ProjectCard({ project }: { project: Project }) {
 /**
  * Projects section of the portfolio.
  *
- * Renders a grid of featured project cards, each containing a visual preview,
- * description, tech stack pills, and external links (App Store, Google Play, Web).
- * Cards animate in with a stagger when the section enters the viewport.
+ * Renders featured projects as numbered editorial rows — no card grids,
+ * no gradient previews. Stack displayed as dot-separated text.
+ * Links styled as monospace text anchors with amber hover state.
  * All animations are disabled when `prefers-reduced-motion` is active.
  */
 export function ProjectsSection() {
@@ -184,12 +128,13 @@ export function ProjectsSection() {
   const shouldReduceMotion = useReducedMotion();
 
   const containerVariants = shouldReduceMotion ? {} : CONTAINER_VARIANTS;
-  const cardVariants = shouldReduceMotion ? {} : CARD_VARIANTS;
+  const rowVariants = shouldReduceMotion ? {} : ROW_VARIANTS;
   const initial = shouldReduceMotion ? false : ("hidden" as const);
 
   const projects: Project[] = [
     {
       id: "inspirar",
+      index: "01",
       name: "Inspirar",
       client: "USP",
       description: t("items.inspirar.description"),
@@ -219,12 +164,10 @@ export function ProjectsSection() {
           icon: Globe,
         },
       ],
-      previewGradient:
-        "linear-gradient(135deg, rgba(99,102,241,0.9) 0%, rgba(6,182,212,0.7) 100%)",
-      accentRgb: "99, 102, 241",
     },
     {
       id: "petro-capital",
+      index: "02",
       name: "Petro Capital",
       client: "Petro Capital",
       description: t("items.petroCapital.description"),
@@ -241,12 +184,10 @@ export function ProjectsSection() {
           icon: Smartphone,
         },
       ],
-      previewGradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.9) 0%, rgba(79,70,229,0.7) 100%)",
-      accentRgb: "139, 92, 246",
     },
     {
       id: "smiles",
+      index: "03",
       name: "Smiles",
       client: "Gol",
       description: t("items.smiles.description"),
@@ -258,9 +199,6 @@ export function ProjectsSection() {
           icon: Monitor,
         },
       ],
-      previewGradient:
-        "linear-gradient(135deg, rgba(99,102,241,0.8) 0%, rgba(217,70,239,0.7) 100%)",
-      accentRgb: "99, 102, 241",
     },
   ];
 
@@ -270,46 +208,50 @@ export function ProjectsSection() {
       aria-label={t("ariaLabel")}
       className="relative px-6 py-32"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
 
         {/* ── Section header ─────────────────────────────────────────────── */}
         <motion.div
-          className="mb-16 flex flex-col gap-4"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          className="mb-4"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="text-sm font-medium uppercase tracking-widest text-indigo-400">
-            {t("sectionLabel")}
+          <span className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-600">
+            — {t("sectionLabel")}
           </span>
 
-          <h2 className="text-3xl font-bold text-[#f5f5f5] sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 text-4xl font-bold text-[#f5f5f5] sm:text-5xl lg:text-6xl">
             {t("heading")}{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-              {t("headingHighlight")}
-            </span>
+            <span style={{ color: "#e8651a" }}>{t("headingHighlight")}</span>
           </h2>
 
-          <p className="max-w-xl text-base leading-relaxed text-zinc-400">
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-400 sm:text-base">
             {t("description")}
           </p>
         </motion.div>
 
-        {/* ── Cards grid ─────────────────────────────────────────────────── */}
+        {/* ── Project rows ───────────────────────────────────────────────── */}
         <motion.div
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial={initial}
           whileInView="visible"
           viewport={{ once: true }}
         >
           {projects.map((project) => (
-            <motion.div key={project.id} variants={cardVariants} className="h-full">
-              <ProjectCard project={project} />
+            <motion.div key={project.id} variants={rowVariants}>
+              <ProjectRow project={project} />
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Bottom border */}
+        <div
+          aria-hidden="true"
+          className="border-t"
+          style={{ borderColor: "rgba(255,255,255,0.08)" }}
+        />
 
       </div>
     </section>
