@@ -44,7 +44,7 @@ export function HeroSection() {
     <section
       id="hero"
       aria-label={t("ariaLabel")}
-      className="relative flex min-h-screen flex-col justify-end overflow-hidden px-6 pb-16 pt-32 md:pb-24"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pb-10 pt-20 md:justify-end md:pb-24"
     >
       {/* Amber accent line — top of page */}
       <div
@@ -73,7 +73,7 @@ export function HeroSection() {
         {/* Availability status */}
         <motion.div
           variants={itemVariants}
-          className="mb-10 flex items-center gap-2.5"
+          className="mb-6 flex items-center gap-2.5 md:mb-10"
         >
           <span
             className="h-1.5 w-1.5 rounded-full"
@@ -88,8 +88,8 @@ export function HeroSection() {
         {/* Name — oversized editorial type */}
         <motion.h1
           variants={itemVariants}
-          className="mb-10 font-extrabold leading-[0.88] tracking-tight"
-          style={{ fontSize: "clamp(3.5rem, 13vw, 11rem)" }}
+          className="mb-6 font-extrabold leading-[0.88] tracking-tight md:mb-10"
+          style={{ fontSize: "clamp(2.4rem, 13vw, 11rem)" }}
         >
           <span className="block text-[#f5f5f5]">Sergio</span>
           <span className="block" style={{ color: "#e8651a" }}>
