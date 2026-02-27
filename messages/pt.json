@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "title": "Sergio Monteiro — Front-end Developer",
+    "description": "Portfólio de Sergio Monteiro Ribeiro, desenvolvedor Front-end com foco em React, React Native e experiência do usuário."
+  },
+  "navbar": {
+    "about": "Sobre",
+    "projects": "Projetos",
+    "skills": "Skills",
+    "experience": "Experiência",
+    "contact": "Contato",
+    "ariaLabel": "Navegação principal",
+    "logoAriaLabel": "Ir para o topo",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "mobileDialogAriaLabel": "Menu de navegação",
+    "mobileNavAriaLabel": "Menu mobile"
+  },
+  "hero": {
+    "ariaLabel": "Apresentação",
+    "available": "Disponível para projetos",
+    "description": "Especialista em React e React Native, construindo interfaces rápidas, acessíveis e centradas na experiência do usuário.",
+    "ctaProjects": "Ver projetos",
+    "githubAriaLabel": "Perfil no GitHub",
+    "linkedinAriaLabel": "Perfil no LinkedIn"
+  },
+  "about": {
+    "ariaLabel": "Sobre mim",
+    "sectionLabel": "Sobre mim",
+    "heading": "Desenvolvedor apaixonado",
+    "headingHighlight": "por UX",
+    "bio1": "Desenvolvedor Front-end com mais de 4 anos de experiência, especializado em <b>React</b> e <b>React Native</b>. Atuo na <b>NewGo Software House</b> desde maio de 2022, desenvolvendo soluções para clientes como <b>USP</b> e <b>Gol/Smiles</b>.",
+    "bio2": "Tenho pós-graduação em <b>UX Design pela PUCRS</b> e formação em Análise e Desenvolvimento de Sistemas pela UMC. Esse background me permite criar interfaces não apenas funcionais, mas <b>intuitivas e centradas no usuário</b>.",
+    "photoPlaceholder": "foto em breve",
+    "highlights": {
+      "newgo": {
+        "subtitle": "Desenvolvedor Front-end Pleno",
+        "detail": "Mai/2022 – Atual"
+      },
+      "uxdesign": {
+        "title": "Pós-grad. em UX Design",
+        "detail": "Design centrado no usuário"
+      },
+      "ads": {
+        "title": "An. e Des. de Sistemas",
+        "detail": "Formação técnica"
+      },
+      "english": {
+        "title": "Inglês Avançado",
+        "subtitle": "Comunicação profissional",
+        "detail": "Leitura e escrita técnica"
+      }
+    }
+  },
+  "projects": {
+    "ariaLabel": "Projetos em destaque",
+    "sectionLabel": "Projetos",
+    "heading": "O que tenho",
+    "headingHighlight": "construído",
+    "description": "Projetos em produção para empresas reais, com foco em performance, acessibilidade e experiência do usuário.",
+    "items": {
+      "inspirar": {
+        "description": "App de suporte ao tratamento de asma com monitoração geoespacial da qualidade do ar, integração com Google Health Connect e sistema web com dashboards para profissionais de saúde."
+      },
+      "petroCapital": {
+        "description": "App de gestão de investimentos com notificações push em tempo real, animações fluidas via React Reanimated e interface de alta performance para iOS e Android."
+      },
+      "smiles": {
+        "description": "Sistema web de busca e resgate de passagens aéreas do maior programa de fidelidade do Brasil, construído com arquitetura de micro frontends e alta escalabilidade.",
+        "linkVisit": "Acessar"
+      }
+    }
+  },
+  "skills": {
+    "ariaLabel": "Competências técnicas",
+    "sectionLabel": "Competências",
+    "heading": "Ferramentas do",
+    "headingHighlight": "meu trabalho",
+    "description": "Tecnologias com as quais trabalho no dia a dia, organizadas por área de atuação.",
+    "categories": {
+      "frontend": "Front-end",
+      "testing": "Testes",
+      "design": "Design & UX",
+      "infra": "Infraestrutura",
+      "others": "Outros"
+    },
+    "uxDesignSkill": "Pós-grad. UX Design"
+  },
+  "experience": {
+    "ariaLabel": "Experiência profissional",
+    "sectionLabel": "Experiência",
+    "heading": "Trajetória",
+    "headingHighlight": "profissional",
+    "description": "Passagem por consultoria e software house, sempre com foco em front-end e experiência do usuário.",
+    "currentBadge": "Atual",
+    "projectsLabel": "Projetos",
+    "entries": {
+      "newgo": {
+        "role": "Desenvolvedor Front-end Pleno",
+        "period": "Mai/2022 – Atual",
+        "context": "Software House · São Paulo, SP",
+        "description": "Desenvolvimento de soluções front-end para clientes de médio e grande porte, atuando com React Native na criação de apps iOS e Android e ReactJS em sistemas web de alta complexidade. Trabalho de ponta a ponta junto às equipes de design e backend, com foco em performance, acessibilidade e experiência do usuário."
+      },
+      "cpqi": {
+        "role": "Desenvolvedor Full Stack Júnior",
+        "period": "Jan/2021 – Mai/2022",
+        "context": "Consultoria · BTG Pactual / Open Finance",
+        "description": "Desenvolvimento full stack no ecossistema de Open Finance do BTG Pactual, um dos maiores bancos de investimento do Brasil. Atuação na construção de interfaces React e APIs REST integradas ao sistema financeiro aberto regulado pelo Banco Central do Brasil."
+      }
+    }
+  },
+  "contact": {
+    "ariaLabel": "Contato",
+    "sectionLabel": "Contato",
+    "heading": "Vamos trabalhar",
+    "headingHighlight": "juntos?",
+    "description": "Estou disponível para projetos freelance, posições CLT/PJ e colaborações. Me manda uma mensagem — respondo em até 24h.",
+    "phoneLabel": "Telefone",
+    "phoneValue": "+55 (11) 99897-1796",
+    "formAriaLabel": "Formulário de contato",
+    "formTitle": "Envie uma mensagem",
+    "formSubtitle": "Preencha o formulário e clique em enviar.",
+    "nameLabel": "Nome",
+    "namePlaceholder": "Seu nome",
+    "emailLabel": "Email",
+    "emailPlaceholder": "seu@email.com",
+    "messageLabel": "Mensagem",
+    "messagePlaceholder": "Conte um pouco sobre seu projeto ou ideia...",
+    "submitButton": "Enviar mensagem",
+    "submittedButton": "Cliente de e-mail aberto",
+    "footerNote": "Ao enviar, seu cliente de e-mail será aberto com a mensagem preenchida.",
+    "emailSubject": "Contato via portfólio — {name}",
+    "emailReplyLabel": "E-mail de resposta"
+  },
+  "footer": {
+    "ariaLabel": "Rodapé",
+    "madeWith": "Feito com Next.js · Tailwind CSS · Framer Motion"
+  }
+}

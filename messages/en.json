@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "title": "Sergio Monteiro — Front-end Developer",
+    "description": "Portfolio of Sergio Monteiro Ribeiro, Front-end developer focused on React, React Native, and user experience."
+  },
+  "navbar": {
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "experience": "Experience",
+    "contact": "Contact",
+    "ariaLabel": "Main navigation",
+    "logoAriaLabel": "Go to top",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileDialogAriaLabel": "Navigation menu",
+    "mobileNavAriaLabel": "Mobile menu"
+  },
+  "hero": {
+    "ariaLabel": "Introduction",
+    "available": "Available for projects",
+    "description": "React and React Native specialist, building fast, accessible, and user-centered interfaces.",
+    "ctaProjects": "View projects",
+    "githubAriaLabel": "GitHub profile",
+    "linkedinAriaLabel": "LinkedIn profile"
+  },
+  "about": {
+    "ariaLabel": "About me",
+    "sectionLabel": "About me",
+    "heading": "Passionate developer",
+    "headingHighlight": "about UX",
+    "bio1": "Front-end Developer with over 4 years of experience, specialized in <b>React</b> and <b>React Native</b>. Working at <b>NewGo Software House</b> since May 2022, building solutions for clients such as <b>USP</b> and <b>Gol/Smiles</b>.",
+    "bio2": "I hold a postgraduate degree in <b>UX Design from PUCRS</b> and a degree in Systems Analysis and Development from UMC. This background allows me to create interfaces that are not only functional, but <b>intuitive and user-centered</b>.",
+    "photoPlaceholder": "photo coming soon",
+    "highlights": {
+      "newgo": {
+        "subtitle": "Mid-level Front-end Developer",
+        "detail": "May/2022 – Present"
+      },
+      "uxdesign": {
+        "title": "Postgrad. in UX Design",
+        "detail": "User-centered design"
+      },
+      "ads": {
+        "title": "Systems Analysis & Dev.",
+        "detail": "Technical degree"
+      },
+      "english": {
+        "title": "Advanced English",
+        "subtitle": "Professional communication",
+        "detail": "Technical reading & writing"
+      }
+    }
+  },
+  "projects": {
+    "ariaLabel": "Featured projects",
+    "sectionLabel": "Projects",
+    "heading": "What I have",
+    "headingHighlight": "built",
+    "description": "Production projects for real companies, focused on performance, accessibility, and user experience.",
+    "items": {
+      "inspirar": {
+        "description": "Asthma treatment support app with geospatial air quality monitoring, Google Health Connect integration, and a web system with dashboards for healthcare professionals."
+      },
+      "petroCapital": {
+        "description": "Investment management app with real-time push notifications, smooth animations via React Reanimated, and a high-performance interface for iOS and Android."
+      },
+      "smiles": {
+        "description": "Web flight search and redemption system for Brazil's largest loyalty program, built with a micro-frontend architecture and high scalability.",
+        "linkVisit": "Visit"
+      }
+    }
+  },
+  "skills": {
+    "ariaLabel": "Technical skills",
+    "sectionLabel": "Skills",
+    "heading": "Tools of",
+    "headingHighlight": "my craft",
+    "description": "Technologies I work with daily, organized by area.",
+    "categories": {
+      "frontend": "Front-end",
+      "testing": "Testing",
+      "design": "Design & UX",
+      "infra": "Infrastructure",
+      "others": "Other"
+    },
+    "uxDesignSkill": "UX Design Postgrad."
+  },
+  "experience": {
+    "ariaLabel": "Professional experience",
+    "sectionLabel": "Experience",
+    "heading": "Professional",
+    "headingHighlight": "journey",
+    "description": "Experience across consultancy and software house settings, always focused on front-end and user experience.",
+    "currentBadge": "Current",
+    "projectsLabel": "Projects",
+    "entries": {
+      "newgo": {
+        "role": "Mid-level Front-end Developer",
+        "period": "May/2022 – Present",
+        "context": "Software House · São Paulo, SP",
+        "description": "Front-end development for mid and large-scale clients, building iOS and Android apps with React Native and complex web systems with ReactJS. End-to-end collaboration with design and backend teams, focused on performance, accessibility, and user experience."
+      },
+      "cpqi": {
+        "role": "Junior Full Stack Developer",
+        "period": "Jan/2021 – May/2022",
+        "context": "Consultancy · BTG Pactual / Open Finance",
+        "description": "Full stack development in BTG Pactual's Open Finance ecosystem, one of Brazil's largest investment banks. Building React interfaces and REST APIs integrated into the open financial system regulated by the Central Bank of Brazil."
+      }
+    }
+  },
+  "contact": {
+    "ariaLabel": "Contact",
+    "sectionLabel": "Contact",
+    "heading": "Let's work",
+    "headingHighlight": "together?",
+    "description": "I'm available for freelance projects, full-time and contractor positions, and collaborations. Send me a message — I'll reply within 24h.",
+    "phoneLabel": "Phone",
+    "phoneValue": "+55 (11) 99897-1796",
+    "formAriaLabel": "Contact form",
+    "formTitle": "Send a message",
+    "formSubtitle": "Fill in the form and click send.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me about your project or idea...",
+    "submitButton": "Send message",
+    "submittedButton": "Email client opened",
+    "footerNote": "When you submit, your email client will open with the message pre-filled.",
+    "emailSubject": "Contact via portfolio — {name}",
+    "emailReplyLabel": "Reply email"
+  },
+  "footer": {
+    "ariaLabel": "Footer",
+    "madeWith": "Built with Next.js · Tailwind CSS · Framer Motion"
+  }
+}
